@@ -4,64 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Internet Speed Test</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
-            color: #495057;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-        h1 {
-            color: #007bff;
-            margin-bottom: 20px;
-        }
-
-        button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        #speedResults {
-            margin-top: 20px;
-        }
-
-        p {
-            margin: 10px 0;
-        }
-
-        .progress-container {
-            width: 50%;
-            margin: 20px auto;
-            background-color: #ddd;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            width: 0;
-            height: 20px;
-            background-color: #007bff;
-            border-radius: 5px;
-            transition: width 0.3s ease;
-        }
-
-        .fast-message {
-            color: green;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
     <h1>Internet Speed Test</h1>
@@ -75,44 +18,9 @@
         <p id="pingResult"></p>
         <p id="latencyResult"></p>
         <p id="fastMessage" class="fast-message"></p>
+        <p id="errorMessage" class="error-message"></p>
     </div>
 
-    <script>
-        function runSpeedTest() {
-            // Reset progress bar
-            document.getElementById('progressBar').style.width = '0';
-
-            // Simulate a simple progress update for demonstration purposes
-            let progress = 0;
-            const progressInterval = setInterval(() => {
-                progress += 10;
-                document.getElementById('progressBar').style.width = `${progress}%`;
-                if (progress >= 100) {
-                    clearInterval(progressInterval);
-                    fetchData();  // Call the function to fetch speed test results
-                }
-            }, 500);
-        }
-
-        function fetchData() {
-            fetch('/get_speed')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('downloadResult').innerText = `Download Speed: ${data.download_speed.toFixed(2)} Mbps`;
-                    document.getElementById('uploadResult').innerText = `Upload Speed: ${data.upload_speed.toFixed(2)} Mbps`;
-                    document.getElementById('pingResult').innerText = `Ping: ${data.ping.toFixed(2)} ms`;
-                    document.getElementById('latencyResult').innerText = `Latency: ${data.latency.toFixed(2)} ms`;
-
-                    if (data.is_fast) {
-                        document.getElementById('fastMessage').innerText = "Internet is fast!";
-                    } else {
-                        document.getElementById('fastMessage').innerText = "";
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        }
-    </script>
+    <script src="../static/script.js"></script>
 </body>
 </html>
